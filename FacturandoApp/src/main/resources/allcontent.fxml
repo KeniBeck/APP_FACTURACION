@@ -1,0 +1,592 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.image.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1366.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.api.gestion.facturandoapp.ClasesController.AllcontentController">
+   <children>
+      <Pane prefHeight="700.0" prefWidth="200.0" style="-fx-background-color: #51CBF1;">
+         <children>
+            <ImageView fx:id="image_RealizarFactura" fitHeight="93.0" fitWidth="94.0" layoutX="44.0" layoutY="270.0" onMouseClicked="#OnRealizarFacturaMenu" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@images/crearFActura.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="87.0" fitWidth="87.0" layoutX="44.0" layoutY="404.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@images/estadisticas.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="ImageClickMenuEmpresa" fitHeight="87.0" fitWidth="93.0" layoutX="50.0" layoutY="546.0" onMouseClicked="#OnMenuEmpresa" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@images/empresas.png" />
+               </image>
+            </ImageView>
+            <Label layoutX="19.0" layoutY="231.0" text="Opciones Empleado">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <Label layoutX="33.0" layoutY="371.0" text="Realizar Facturas">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <Label layoutX="48.0" layoutY="498.0" text="Estadisticas">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <Label layoutX="34.0" layoutY="645.0" text="Agregar Empresas">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <StackPane fx:id="stack_opcines" layoutX="20.0" layoutY="8.0" prefHeight="107.0" prefWidth="148.0">
+               <children>
+                  <Pane fx:id="pane_opciones" prefHeight="99.0" prefWidth="125.0">
+                     <children>
+                        <ImageView fitHeight="71.0" fitWidth="65.0" layoutX="42.0" layoutY="14.0" onMouseClicked="#OnOpcionClick" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@images/menu.png" />
+                           </image>
+                        </ImageView>
+                        <Label layoutX="32.0" layoutY="66.0" text="Opciones">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </Pane>
+               </children>
+            </StackPane>
+            <ImageView fitHeight="100.0" fitWidth="99.0" layoutX="47.0" layoutY="127.0" onMouseClicked="#ImageClick_Empleado" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@images/empleados.png" />
+               </image>
+            </ImageView>
+         </children>
+      </Pane>
+      <ImageView fitHeight="452.0" fitWidth="358.0" layoutX="547.0" layoutY="197.0" opacity="0.2" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@images/registrarse.png" />
+         </image>
+      </ImageView>
+      <Label layoutX="599.0" layoutY="76.0" opacity="0.29" text="Facturando">
+         <font>
+            <Font name="System Bold Italic" size="48.0" />
+         </font>
+      </Label>
+      <Label layoutX="664.0" layoutY="133.0" opacity="0.34" text="Facil y seguro ..!">
+         <font>
+            <Font name="System Italic" size="18.0" />
+         </font>
+      </Label>
+      <StackPane fx:id="stackPane_opciones" layoutX="200.0" layoutY="4.0" prefHeight="263.0" prefWidth="236.0">
+         <children>
+            <Pane fx:id="pane_opActive" prefHeight="236.0" prefWidth="269.0" visible="false">
+               <children>
+                  <Button fx:id="btn_salir" layoutX="20.0" layoutY="172.0" mnemonicParsing="false" onMouseClicked="#OnSalirMenus" prefHeight="57.0" prefWidth="193.0" text="Salir">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Button>
+                  <ImageView fitHeight="51.0" fitWidth="44.0" layoutX="29.0" layoutY="178.0" onMouseClicked="#OnSalirClick" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@images/salir.png" />
+                     </image>
+                  </ImageView>
+                  <Button fx:id="btn_ListaUsuarios" layoutX="16.0" layoutY="98.0" mnemonicParsing="false" prefHeight="57.0" prefWidth="200.0" text="Usuarios">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Button>
+                  <ImageView fitHeight="44.0" fitWidth="44.0" layoutX="29.0" layoutY="105.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@images/listUser.png" />
+                     </image>
+                  </ImageView>
+                  <Button fx:id="btn_CerrarSecion" layoutX="16.0" layoutY="29.0" mnemonicParsing="false" prefHeight="57.0" prefWidth="200.0" text="Cerrar seción">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Button>
+                  <ImageView fitHeight="44.0" fitWidth="44.0" layoutX="20.0" layoutY="36.0" onMouseClicked="#onCerrarSecionclick" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@images/cerrar-sesion.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </Pane>
+         </children>
+      </StackPane>
+      <Pane fx:id="panel_aggActive" layoutX="367.0" layoutY="4.0" prefHeight="692.0" prefWidth="877.0" style="-fx-background-color: #FFFF;" visible="false">
+         <children>
+            <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="339.0" layoutY="49.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@images/registrarse.png" />
+               </image>
+            </ImageView>
+            <Label layoutX="296.0" layoutY="199.0" text="Registro de empleado.">
+               <font>
+                  <Font name="System Bold Italic" size="24.0" />
+               </font>
+            </Label>
+            <Label layoutX="171.0" layoutY="269.0" text="Identificacion :">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <TextField fx:id="txt_id" layoutX="296.0" layoutY="261.0" prefHeight="35.0" prefWidth="264.0" />
+            <Label layoutX="121.0" layoutY="315.0" text="Nombre y Apellidos :">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <TextField fx:id="txt_nombres" layoutX="296.0" layoutY="303.0" prefHeight="35.0" prefWidth="264.0" />
+            <Label layoutX="144.0" layoutY="354.0" text="Fecha de ingreso :">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <DatePicker fx:id="date_ingreso" layoutX="296.0" layoutY="346.0" prefHeight="35.0" prefWidth="264.0" />
+            <Label layoutX="114.0" layoutY="397.0" text="Fecha de nacimiento :">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <DatePicker fx:id="date_nacimiento" layoutX="296.0" layoutY="389.0" prefHeight="35.0" prefWidth="264.0" />
+            <TextField fx:id="txt_cargo" layoutX="296.0" layoutY="431.0" prefHeight="35.0" prefWidth="264.0" />
+            <Label layoutX="229.0" layoutY="439.0" text="Cargo :">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <Button fx:id="btn_registrarEmpleado" layoutX="461.0" layoutY="535.0" mnemonicParsing="false" onMouseClicked="#OnRegistrarEmpleado" prefHeight="35.0" prefWidth="99.0" style="-fx-background-color: #9BDAE9;" text="Registrar" />
+            <Button fx:id="BtnVolverOpEmpleadoRegistro" layoutX="290.0" layoutY="535.0" mnemonicParsing="false" onMouseClicked="#OnVolverOpEmpleadoRegistro" prefHeight="35.0" prefWidth="99.0" style="-fx-background-color: #9BDAE9;" text="Volver" />
+            <TextField fx:id="txt_telefono" layoutX="296.0" layoutY="473.0" prefHeight="35.0" prefWidth="264.0" />
+            <Label layoutX="216.0" layoutY="481.0" text="Telefono:">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+         </children>
+      </Pane>
+      <Pane fx:id="panel_opEmpleados" layoutX="200.0" layoutY="74.0" prefHeight="246.0" prefWidth="264.0" visible="false">
+         <children>
+            <Button fx:id="btn_aggEmpleado" layoutX="14.0" layoutY="28.0" mnemonicParsing="false" onMouseClicked="#OnAggEmpleado" prefHeight="57.0" prefWidth="223.0">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Button>
+            <ImageView fitHeight="65.0" fitWidth="44.0" layoutX="27.0" layoutY="35.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@images/aggempleado.png" />
+               </image>
+            </ImageView>
+            <Button fx:id="btn_verEmpleado" layoutX="14.0" layoutY="93.0" mnemonicParsing="false" onMouseClicked="#OnVerTablaEmpleado" prefHeight="57.0" prefWidth="223.0">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Button>
+            <ImageView fitHeight="57.0" fitWidth="44.0" layoutX="27.0" layoutY="100.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@images/ver.png" />
+               </image>
+            </ImageView>
+            <Label fx:id="LabelBtn_aggEmpleado" layoutX="82.0" layoutY="43.0" onMouseClicked="#labelButon_aggEmpleadoClick" text="Agregar Empleado">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <Label layoutX="82.0" layoutY="108.0" onMouseClicked="#OnVerTablaEmpleado" text="Ver Empleados">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <Button fx:id="BtnSalirOpEmpleado" layoutX="14.0" layoutY="162.0" mnemonicParsing="false" onMouseClicked="#OnSalirMenus" prefHeight="57.0" prefWidth="223.0">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Button>
+            <ImageView fitHeight="57.0" fitWidth="50.0" layoutX="24.0" layoutY="166.0" onMouseClicked="#OnSalirMenus" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@images/salir.png" />
+               </image>
+            </ImageView>
+            <Label fx:id="labelSalirOpEmpleado" layoutX="82.0" layoutY="177.0" onMouseClicked="#OnSalirMenus" text="Salir del menu">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+         </children>
+      </Pane>
+      <Pane fx:id="Panel_VerEmpleados" layoutX="348.0" layoutY="4.0" prefHeight="668.0" prefWidth="721.0" style="-fx-background-color: #FFFF;" visible="false">
+         <children>
+            <TableView fx:id="Table_VerEmpleados" layoutY="130.0" prefHeight="454.0" prefWidth="721.0">
+              <columns>
+                <TableColumn fx:id="colId" prefWidth="95.0" text="Indetificacion" />
+                <TableColumn fx:id="colNombre" prefWidth="112.0" text="Nombre y apellidos" />
+                  <TableColumn fx:id="colFechaIngreso" prefWidth="112.0" text="Fecha de ingreso" />
+                  <TableColumn fx:id="colFechaNacimiento" prefWidth="112.0" text="Fecha de nacimiento" />
+                  <TableColumn fx:id="colCargo" prefWidth="106.0" text="Cargo" />
+                  <TableColumn fx:id="colTelefono" prefWidth="106.0" text="Telefono" />
+                  <TableColumn fx:id="colEliminar" prefWidth="76.0" text="Eliminar" />
+              </columns>
+            </TableView>
+            <Button fx:id="BtnVolverVerEmpleados" layoutX="591.0" layoutY="594.0" mnemonicParsing="false" onMouseClicked="#OnVolverVerEmpleados" prefHeight="35.0" prefWidth="90.0" text="Volver" />
+            <ImageView fitHeight="118.0" fitWidth="119.0" layoutX="123.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@images/registrarse.png" />
+               </image>
+            </ImageView>
+            <Label layoutX="252.0" layoutY="29.0" prefHeight="50.0" prefWidth="304.0" text="Lista de empleados registrados.">
+               <font>
+                  <Font name="System Bold Italic" size="20.0" />
+               </font>
+            </Label>
+            <Button fx:id="BtnActualizarVerEmpleados" layoutX="466.0" layoutY="594.0" mnemonicParsing="false" onMouseClicked="#OnActualizarVerEmpleados" prefHeight="35.0" prefWidth="90.0" text="Actualizar" />
+         </children>
+      </Pane>
+      <Pane fx:id="Panel_realizraFacturas" layoutX="205.0" layoutY="229.0" prefHeight="294.0" prefWidth="295.0" visible="true">
+         <children>
+            <Button fx:id="btn_RealizarFacturaEmpleado" layoutX="14.0" layoutY="22.0" mnemonicParsing="false" onMouseClicked="#OnRealizarFacturaEmpleado" prefHeight="50.0" prefWidth="230.0" />
+            <ImageView fitHeight="44.0" fitWidth="50.0" layoutX="22.0" layoutY="24.0" onMouseClicked="#OnRealizarFacturaEmpleado" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@images/avatar.png" />
+               </image>
+            </ImageView>
+            <Label layoutX="76.0" layoutY="34.0" onMouseClicked="#OnRealizarFacturaEmpleado" text="Factura Empleado">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <Button fx:id="btn_facturaEmpresa" layoutX="14.0" layoutY="80.0" mnemonicParsing="false" onMouseClicked="#OnFacturaEmpresa" prefHeight="50.0" prefWidth="230.0" />
+            <Label layoutX="76.0" layoutY="92.0" onMouseClicked="#OnFacturaEmpresa" text="Factura Empresa">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <ImageView fitHeight="44.0" fitWidth="50.0" layoutX="22.0" layoutY="83.0" onMouseClicked="#OnFacturaEmpresa" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@images/Hacerfactura.png" />
+               </image>
+            </ImageView>
+            <Button fx:id="btn_salirMenufactura" layoutX="14.0" layoutY="195.0" mnemonicParsing="false" onMouseClicked="#OnSalirMenus" prefHeight="50.0" prefWidth="230.0" />
+            <Label layoutX="84.0" layoutY="207.0" onMouseClicked="#OnSalirMenus" text="Salir del menu">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <ImageView fitHeight="44.0" fitWidth="50.0" layoutX="22.0" layoutY="198.0" onMouseClicked="#OnSalirMenus" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@images/salir.png" />
+               </image>
+            </ImageView>
+            <Button fx:id="btn_VerFacturas" layoutX="14.0" layoutY="138.0" mnemonicParsing="false" onMouseClicked="#OnVerFacturas" prefHeight="50.0" prefWidth="230.0" />
+            <ImageView fitHeight="44.0" fitWidth="50.0" layoutX="22.0" layoutY="138.0" onMouseClicked="#OnVerFacturas" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@images/ver.png" />
+               </image>
+            </ImageView>
+            <Label layoutX="92.0" layoutY="150.0" onMouseClicked="#OnVerFacturas" text="Ver Facturas">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+         </children>
+      </Pane>
+      <Pane fx:id="panel_tableFacturar" layoutX="443.0" layoutY="34.0" prefHeight="632.0" prefWidth="877.0" style="-fx-background-color: #FFFF;" visible="false">
+         <children>
+            <Label layoutX="14.0" layoutY="48.0" text="Id Factura :">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <TextField fx:id="txt_idFactura" editable="false" layoutX="108.0" layoutY="48.0" prefHeight="25.0" prefWidth="87.0" />
+            <Label layoutX="96.0" layoutY="161.0" text="Identificacion del empleado :">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <TextField fx:id="txt_idEmpleadoFactura" layoutX="332.0" layoutY="152.0" prefHeight="35.0" prefWidth="230.0" />
+            <Label layoutX="135.0" layoutY="200.0" text="Nombre del empleado :">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <TextField fx:id="txt_nombreEmpleadoFactura" layoutX="332.0" layoutY="192.0" prefHeight="35.0" prefWidth="230.0" />
+            <DatePicker fx:id="date_fechaEmisionFactura" layoutX="332.0" layoutY="234.0" prefHeight="35.0" prefWidth="229.0" />
+            <Label layoutX="182.0" layoutY="242.0" text="Fecha de emision :">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <TextArea fx:id="txtarea_descripcionFactura" layoutX="337.0" layoutY="275.0" prefHeight="77.0" prefWidth="229.0" />
+            <Label layoutX="226.0" layoutY="327.0" text="Descripción :">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <TextField fx:id="txt_cantidadFactura" layoutX="337.0" layoutY="360.0" prefHeight="35.0" prefWidth="230.0" />
+            <Label layoutX="249.0" layoutY="368.0" prefHeight="27.0" prefWidth="81.0" text="Cantidad:">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <TextField fx:id="txt_vUnitarioFactura" layoutX="337.0" layoutY="403.0" prefHeight="35.0" prefWidth="230.0" />
+            <TextField fx:id="txt_vTotal" editable="false" layoutX="337.0" layoutY="446.0" prefHeight="35.0" prefWidth="230.0" />
+            <Label layoutX="211.0" layoutY="407.0" prefHeight="27.0" prefWidth="119.0" text="Valor unitario:">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <Label layoutX="237.0" layoutY="450.0" prefHeight="27.0" prefWidth="90.0" text="Valor total:">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <MenuButton fx:id="menuButtonEmpleadosFactura" layoutX="633.0" layoutY="53.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="101.0" text="Empleados" />
+            <Button layoutX="641.0" layoutY="541.0" mnemonicParsing="false" onMouseClicked="#onGuardarFactura" prefHeight="35.0" prefWidth="93.0" text="Guardar" />
+            <Button fx:id="btn_volverFactura" layoutX="528.0" layoutY="541.0" mnemonicParsing="false" onMouseClicked="#onVolverFacturaEmpleado" prefHeight="35.0" prefWidth="93.0" text="Volver" />
+            <ImageView fitHeight="125.0" fitWidth="113.0" layoutX="233.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@images/Hacerfactura.png" />
+               </image>
+            </ImageView>
+            <Label layoutX="357.0" layoutY="53.0" text="Realizar Factura.">
+               <font>
+                  <Font name="System Bold Italic" size="24.0" />
+               </font>
+            </Label>
+            <Button fx:id="btn_ActulizarPanelFactura" layoutX="423.0" layoutY="541.0" mnemonicParsing="false" onAction="#actualizarListaEmpleadosFactura" prefHeight="35.0" prefWidth="93.0" text="Actualizar" />
+         </children>
+      </Pane>
+      <Pane fx:id="panel_menuEmpresa" layoutX="200.0" layoutY="478.0" prefHeight="218.0" prefWidth="304.0" visible="false">
+         <children>
+            <Button fx:id="btn_AgregarEmpresa" layoutX="20.0" layoutY="24.0" mnemonicParsing="false" onMouseClicked="#OnAgregarEmpresa" prefHeight="50.0" prefWidth="236.0" />
+            <ImageView fitHeight="44.0" fitWidth="44.0" layoutX="27.0" layoutY="27.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@images/empresas.png" />
+               </image>
+            </ImageView>
+            <Label layoutX="93.0" layoutY="36.0" onMouseClicked="#OnAgregarEmpresa" text="Agregar empresa">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <Button fx:id="btn_verEmpresa" layoutX="20.0" layoutY="84.0" mnemonicParsing="false" onMouseClicked="#OnVerEmpresa" prefHeight="50.0" prefWidth="236.0" />
+            <ImageView fitHeight="44.0" fitWidth="44.0" layoutX="27.0" layoutY="87.0" onMouseClicked="#OnVerEmpresa" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@images/ver.png" />
+               </image>
+            </ImageView>
+            <Label layoutX="105.0" layoutY="96.0" onMouseClicked="#OnVerEmpresa" text="Ver empresas ">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <Button fx:id="btn_salirMenuEmpresa" layoutX="20.0" layoutY="145.0" mnemonicParsing="false" onMouseClicked="#OnSalirMenus" prefHeight="50.0" prefWidth="236.0" />
+            <ImageView fitHeight="44.0" fitWidth="44.0" layoutX="27.0" layoutY="148.0" onMouseClicked="#OnSalirMenus" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@images/salir.png" />
+               </image>
+            </ImageView>
+            <Label layoutX="104.0" layoutY="157.0" onMouseClicked="#OnSalirMenus" text="Salir del menu">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+         </children>
+      </Pane>
+      <Pane fx:id="panel_RegistroEmpleado" layoutX="464.0" layoutY="85.0" prefHeight="530.0" prefWidth="573.0" style="-fx-background-color: #FFFF;" visible="false">
+         <children>
+            <ImageView fitHeight="99.0" fitWidth="112.0" layoutX="57.0" layoutY="30.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@images/AgregarEmpresa.png" />
+               </image>
+            </ImageView>
+            <Label layoutX="225.0" layoutY="69.0" text="Registro de empresas ">
+               <font>
+                  <Font name="System Bold Italic" size="24.0" />
+               </font>
+            </Label>
+            <Label layoutX="89.0" layoutY="169.0" text="NIT de empresa :">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <TextField fx:id="txt_NitEmpresa" layoutX="231.0" layoutY="165.0" prefHeight="35.0" prefWidth="255.0" />
+            <Label layoutX="50.0" layoutY="214.0" text="Nombre de empresa :">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <TextField fx:id="txt_nombreEmpresa" layoutX="231.0" layoutY="206.0" prefHeight="35.0" prefWidth="255.0" />
+            <Label layoutX="49.0" layoutY="257.0" text="Fecha de vinculacion :">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <DatePicker fx:id="date_fechaVinculacion" layoutX="231.0" layoutY="249.0" prefHeight="35.0" prefWidth="255.0" />
+            <Button fx:id="btn_guardarEmpresa" layoutX="396.0" layoutY="375.0" mnemonicParsing="false" onMouseClicked="#OnGuardarEmpresa" prefHeight="35.0" prefWidth="90.0" text="Guardar" />
+            <Button fx:id="btn_volvelRegistroEmpresa" layoutX="293.0" layoutY="375.0" mnemonicParsing="false" onMouseClicked="#OnVolverRegistroEmpresa" prefHeight="35.0" prefWidth="90.0" text="Volver" />
+         </children>
+      </Pane>
+      <Pane fx:id="panel_FacturaEmpresa" layoutX="465.0" layoutY="76.0" prefHeight="622.0" prefWidth="756.0" style="-fx-background-color: #FFFF;" visible="false">
+         <children>
+            <ImageView fitHeight="107.0" fitWidth="112.0" layoutX="82.0" layoutY="23.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@images/AgregarEmpresa.png" />
+               </image>
+            </ImageView>
+            <Label layoutX="243.0" layoutY="68.0" text="Factura de empresas">
+               <font>
+                  <Font name="System Bold Italic" size="24.0" />
+               </font>
+            </Label>
+            <Label layoutX="157.0" layoutY="191.0" text="NIT de empresa : ">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <TextField fx:id="txt_NitEmpresaFactura" layoutX="306.0" layoutY="183.0" prefHeight="35.0" prefWidth="223.0" />
+            <Label layoutX="143.0" layoutY="280.0" text="Fceha de emision :">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <DatePicker fx:id="date_emisionFactureEmpresa" layoutX="306.0" layoutY="272.0" prefHeight="35.0" prefWidth="223.0" />
+            <Label layoutX="189.0" layoutY="343.0" text="Descripcion : ">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <TextArea fx:id="textArea_descripcionFacturaEmpresa" layoutX="306.0" layoutY="318.0" prefHeight="77.0" prefWidth="223.0" />
+            <Label layoutX="211.0" layoutY="407.0" text="Cantidad :">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <TextField fx:id="txt_cantidadFacturaEmpresa" layoutX="306.0" layoutY="403.0" prefHeight="35.0" prefWidth="223.0" />
+            <Label layoutX="174.0" layoutY="450.0" text="Valor unitario :">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <TextField fx:id="txt_vUnitarioFacturaEmpresa" layoutX="306.0" layoutY="446.0" prefHeight="35.0" prefWidth="223.0" />
+            <TextField fx:id="txt_vTotalFacturaEmpresa" layoutX="306.0" layoutY="492.0" prefHeight="35.0" prefWidth="223.0" />
+            <Label layoutX="195.0" layoutY="496.0" text="Valor total :">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <Label layoutX="115.0" layoutY="229.0" text="Nombre de empresa :">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <TextField fx:id="txt_NombreEmpresaFactura" layoutX="306.0" layoutY="225.0" prefHeight="35.0" prefWidth="223.0" />
+            <Button fx:id="btn_guardarFacturaEmpresa" layoutX="515.0" layoutY="548.0" mnemonicParsing="false" onMouseClicked="#OnGuardarFacturaEmpresa" prefHeight="35.0" prefWidth="93.0" text="Guardar" />
+            <Button fx:id="btn_volvelFacturaEmpresa" layoutX="407.0" layoutY="548.0" mnemonicParsing="false" onMouseClicked="#onVolverFacturaEmpleado" prefHeight="35.0" prefWidth="93.0" text="Volver" />
+            <MenuButton fx:id="menuButtonEmpresaFactura" layoutX="549.0" layoutY="73.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="92.0" text="Empresas">
+              <items>
+                <MenuItem mnemonicParsing="false" text="Action 1" />
+                <MenuItem mnemonicParsing="false" text="Action 2" />
+              </items>
+            </MenuButton>
+            <Button fx:id="btn_actulizarFacturaEmpresa" layoutX="243.0" layoutY="548.0" mnemonicParsing="false" onAction="#actualizarListaEmpresaFactura" prefHeight="35.0" prefWidth="93.0" text="Actualizar" />
+         </children></Pane>
+      <Pane fx:id="panel_verEmpresa" layoutX="348.0" layoutY="27.0" prefHeight="622.0" prefWidth="657.0" style="-fx-background-color: #FFFF;" visible="false">
+         <children>
+            <TableView fx:id="table_verEmpresa" layoutX="87.0" layoutY="113.0" prefHeight="429.0" prefWidth="518.0">
+              <columns>
+                <TableColumn fx:id="colNitEmpresa" prefWidth="123.0" text="NIT de Empresa" />
+                <TableColumn fx:id="colNombreEmpresa" prefWidth="142.0" text="Nombre de Empresa" />
+                  <TableColumn fx:id="colFechaVinculacion" prefWidth="142.0" text="Fecha de Vinculacion" />
+                  <TableColumn fx:id="colEliminarEmpresa" prefWidth="109.0" text="Eliminar" />
+              </columns>
+            </TableView>
+            <Button fx:id="btn_volvelTableEmpresa" layoutX="518.0" layoutY="558.0" mnemonicParsing="false" onMouseClicked="#onVolverVerEmpresa" prefHeight="35.0" prefWidth="87.0" text="Volver" />
+            <ImageView fitHeight="87.0" fitWidth="99.0" layoutX="144.0" layoutY="22.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@images/AgregarEmpresa.png" />
+               </image>
+            </ImageView>
+            <Label layoutX="246.0" layoutY="48.0" text="Ver Empresas Registradas">
+               <font>
+                  <Font name="System Bold Italic" size="24.0" />
+               </font>
+            </Label>
+         </children>
+      </Pane>
+      <Pane fx:id="panel_menuVerFacturas" layoutX="465.0" layoutY="257.0" prefHeight="209.0" prefWidth="282.0">
+         <children>
+            <Button fx:id="btn_VerFacturasEmpresas" layoutX="14.0" layoutY="20.0" mnemonicParsing="false" onMouseClicked="#OnVerFacturasEmpleados" prefHeight="50.0" prefWidth="230.0" />
+            <Button fx:id="btn_VerFacturasEmpleados" layoutX="14.0" layoutY="80.0" mnemonicParsing="false" onMouseClicked="#OnVerFacturas" prefHeight="50.0" prefWidth="230.0" />
+            <ImageView fitHeight="44.0" fitWidth="44.0" layoutX="22.0" layoutY="24.0" onMouseClicked="#OnVerFacturasEmpleados" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@images/AgregarEmpresa.png" />
+               </image>
+            </ImageView>
+            <Label layoutX="103.0" layoutY="32.0" onMouseClicked="#OnVerFacturasEmpleados" text="Empresas">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <ImageView fitHeight="44.0" fitWidth="44.0" layoutX="22.0" layoutY="83.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@images/empleados.png" />
+               </image>
+            </ImageView>
+            <Label layoutX="103.0" layoutY="92.0" text="Empleados">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <Button fx:id="btn_VerFacturasEmpleados1" layoutX="14.0" layoutY="139.0" mnemonicParsing="false" onMouseClicked="#OnVerFacturas" prefHeight="50.0" prefWidth="230.0" />
+            <ImageView fitHeight="44.0" fitWidth="50.0" layoutX="22.0" layoutY="142.0" onMouseClicked="#OnSalirMenus" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@images/salir.png" />
+               </image>
+            </ImageView>
+            <Label layoutX="109.0" layoutY="151.0" text="Volver">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+         </children>
+      </Pane>
+      <Pane fx:id="panel_verFacturaEmpleado" layoutX="539.0" layoutY="102.0" prefHeight="586.0" prefWidth="756.0" style="-fx-background-color: #FFFf;">
+         <children>
+            <ImageView fitHeight="93.0" fitWidth="87.0" layoutX="87.0" layoutY="32.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@images/AgregarEmpresa.png" />
+               </image>
+            </ImageView>
+            <Label layoutX="208.0" layoutY="58.0" text="Factura de Empresas">
+               <font>
+                  <Font name="System Bold Italic" size="24.0" />
+               </font>
+            </Label>
+            <TableView layoutX="11.0" layoutY="138.0" prefHeight="421.0" prefWidth="663.0">
+              <columns>
+                <TableColumn prefWidth="125.0" text="NIT de empresa" />
+                <TableColumn prefWidth="126.0" text="Nombre de empresa" />
+                  <TableColumn prefWidth="126.0" text="Fecha de emision " />
+                  <TableColumn prefWidth="74.0" text="CANT" />
+                  <TableColumn prefWidth="74.0" text="Valor (UNIT)" />
+                  <TableColumn prefWidth="74.0" text="Valor Total" />
+                  <TableColumn prefWidth="74.0" text="Eliminar" />
+              </columns>
+            </TableView>
+         </children>
+      </Pane>
+   </children>
+</Pane>

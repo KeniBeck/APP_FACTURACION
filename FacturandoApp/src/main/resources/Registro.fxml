@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.scene.image.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1366.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.api.gestion.facturandoapp.ClasesController.RegisterController">
+   <children>
+      <ImageView fitHeight="175.0" fitWidth="179.0" layoutX="505.0" layoutY="48.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@images/registrarse.png" />
+         </image>
+      </ImageView>
+      <Label layoutX="493.0" layoutY="275.0" text="Nombre y apellidos :">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <TextField fx:id="txt_nombres" layoutX="673.0" layoutY="271.0" prefHeight="35.0" prefWidth="260.0" />
+      <Label layoutX="505.0" layoutY="321.0" text="Numero de cedula:">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <TextField fx:id="txt_id" layoutX="673.0" layoutY="317.0" prefHeight="35.0" prefWidth="260.0" />
+      <Label layoutX="488.0" layoutY="364.0" text="Fecha de nacimiento:">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Label layoutX="553.0" layoutY="454.0" text="Contraseña : ">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Label layoutX="484.0" layoutY="497.0" text="Confirmar contrseña :">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <TextField fx:id="txt_fecha" layoutX="673.0" layoutY="360.0" prefHeight="35.0" prefWidth="260.0" />
+      <Label layoutX="485.0" layoutY="409.0" text="Numero de telefono :">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <TextField fx:id="txt_telefono" layoutX="673.0" layoutY="405.0" prefHeight="35.0" prefWidth="260.0" />
+      <Button fx:id="btn_registrar" layoutX="846.0" layoutY="547.0" mnemonicParsing="false" onAction="#onGuardar" prefHeight="25.0" prefWidth="80.0" style="-fx-background-color: #6092E2;" text="Registrar" />
+      <Button fx:id="btn_volver" layoutX="707.0" layoutY="547.0" mnemonicParsing="false" onAction="#OnvolverLogin" prefHeight="25.0" prefWidth="80.0" style="-fx-background-color: #6092E2;" text="Volver" />
+      <Label layoutX="693.0" layoutY="68.0" prefHeight="53.0" prefWidth="220.0" text="Facturandon">
+         <font>
+            <Font name="System Bold Italic" size="36.0" />
+         </font>
+      </Label>
+      <Label layoutX="745.0" layoutY="108.0" text="facil y seguro..!">
+         <font>
+            <Font name="System Italic" size="18.0" />
+         </font>
+      </Label>
+      <Label layoutX="735.0" layoutY="172.0" prefHeight="44.0" prefWidth="158.0" text="Registrate">
+         <font>
+            <Font name="System Bold Italic" size="24.0" />
+         </font>
+      </Label>
+      <PasswordField fx:id="txt_contra" layoutX="673.0" layoutY="450.0" prefHeight="35.0" prefWidth="260.0" />
+      <PasswordField fx:id="txt_recontra" layoutX="673.0" layoutY="493.0" prefHeight="35.0" prefWidth="260.0" />
+      <CheckBox fx:id="chkMostrarContrasena" layoutX="945.0" layoutY="459.0" mnemonicParsing="false" text="Mostrar">
+         <font>
+            <Font name="System Italic" size="11.0" />
+         </font>
+      </CheckBox>
+   </children>
+</Pane>
