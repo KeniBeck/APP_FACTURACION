@@ -1,10 +1,14 @@
 package com.api.gestion.facturandoapp.ClasesController;
 
+import DAO.EmpleadoDAO;
 import DAO.EmpresaDAO;
+import DAO.FacturaEmpleadoDAO;
+import DAO.FacturaEmpresaDAO;
 import com.api.gestion.facturandoapp.ClasesController.ControlTablesView.EliminarEmpresaButtonCellFactory;
 import com.api.gestion.facturandoapp.Clases_cls.cls_empleado;
 import com.api.gestion.facturandoapp.Clases_cls.cls_empresa;
 import com.api.gestion.facturandoapp.Clases_cls.cls_facturaEmpleado;
+import com.api.gestion.facturandoapp.Clases_cls.cls_facturaEmpresa;
 import impl.org.controlsfx.autocompletion.SuggestionProvider;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -44,7 +48,7 @@ public class AllcontentController implements Initializable  {
     public TextField txt_telefono;
     public Pane Panel_VerEmpleados;
     public TableView Table_VerEmpleados;
-    public TableColumn colEliminar;
+    public TableColumn<cls_empleado,Void> colEliminar;
 
     public TableColumn colFechaEmision;
     public MenuButton menuButtonEmpleadosFactura;
@@ -83,6 +87,29 @@ public class AllcontentController implements Initializable  {
     public TableColumn<cls_empresa, Void> colEliminarEmpresa;
     public Pane panel_menuVerFacturas;
     public Pane panel_verFacturaEmpleado;
+    public TableColumn<cls_facturaEmpresa, Integer> coliDFacturaEmpresa;
+    public TableColumn<cls_facturaEmpresa,Integer> colNItFactura;
+    public TableColumn<cls_facturaEmpresa,String> colFacturaNombreEmprresa;
+    public TableColumn<cls_facturaEmpresa,LocalDate> colFacturaFechaEmpresa;
+    public TableColumn<cls_facturaEmpresa,String> colFacturaDescripcionEmpresa;
+    public TableColumn<cls_facturaEmpresa,Integer> colFacturaCantidadEmpresa;
+    public TableColumn<cls_facturaEmpresa,Double> colFacturaVUnitarioEmpresa;
+    public TableColumn<cls_facturaEmpresa,Double> colFacturaVTotalEmpresa;
+    public TableView table_facturaEmpresa;
+    public TableColumn<cls_facturaEmpresa,Void> colFacturaEliminarEmpresa;
+    public Pane panel_verFacturaEmpresa;
+    public TableView<cls_facturaEmpleado> table_FacturaEmpleado;
+    public TableColumn<cls_facturaEmpleado,Integer> colIdFacturaEmpleado;
+    public TableColumn<cls_facturaEmpleado,Integer> colIdEmpleadoFactura;
+    public TableColumn<cls_facturaEmpleado,String> colFacturaNombreEmpleado;
+    public TableColumn<cls_facturaEmpleado,LocalDate> colFacturaFechaEmpleado;
+    public TableColumn<cls_facturaEmpleado,String> colFacturaDescripcionEmpleado;
+    public TableColumn<cls_facturaEmpleado,Integer> colFacturaCantidadEmpleado;
+    public TableColumn<cls_facturaEmpleado,Double> colFacturaVUnitarioEmpleado;
+    public TableColumn<cls_facturaEmpleado,Double> colFacturaVTotalEmpleado;
+    public TableColumn<cls_facturaEmpleado,Void> colFacturaElminarEmpleado;
+
+
     private Window stage;
     @FXML
     private TableColumn<cls_empleado,Integer> colId;
@@ -146,6 +173,8 @@ public class AllcontentController implements Initializable  {
         panel_menuVerFacturas.setManaged(false);
         panel_verFacturaEmpleado.setVisible(false);
         panel_verFacturaEmpleado.setManaged(false);
+        panel_verFacturaEmpresa.setVisible(false);
+        panel_verFacturaEmpresa.setManaged(false);
 
         // Agrega más líneas para ocultar otros paneles si es necesario
     }
@@ -181,57 +210,17 @@ public class AllcontentController implements Initializable  {
     public void guardarDatos() {
         // Obtén los valores de los campos de texto
         String nombre = txt_nombres.getText();
-        String idStr = txt_id.getText();
+        int idStr = Integer.parseInt(txt_id.getText());
         LocalDate fecha_ingreso = date_ingreso.getValue();
         LocalDate fecha_nacimiento = date_nacimiento.getValue();
         String cargoText = txt_cargo.getText();
         String telefono = txt_telefono.getText();
 
+        cls_empleado NuevoEmpleado = new cls_empleado(idStr,nombre,fecha_ingreso,fecha_nacimiento,cargoText,telefono);
 
-        // Valida si los campos requeridos están llenos
-        if (nombre.isEmpty() || idStr.isEmpty() || fecha_ingreso == null || fecha_nacimiento == null || cargoText.isEmpty() || telefono.isEmpty()) {
-            // Puedes mostrar un mensaje de error o realizar alguna acción aquí
-            mostrarAlerta("Error", "Faltan campos", "ingrese todos los campos requeridos.");
-            return;
-        }
-            int id;
-            try {
-                id = Integer.parseInt(idStr);
-            } catch (NumberFormatException e) {
-                // Maneja el caso en el que la cadena no se pueda convertir a un entero
-                System.out.println("El campo 'id' debe ser un número entero válido.");
-                return;
-            }
+        EmpleadoDAO.guardarEmpleado(NuevoEmpleado);
+        mostrarAlerta("Regitro Empleados","Empleado registrado con exito","felicidades");
 
-            // Intenta establecer la conexión a la base de datos
-            try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/mi_base_de_datos", "root", "3012")) {
-                // Define la consulta SQL para insertar un nuevo usuario
-                String sql = "INSERT INTO empleado (id, nombre_empleado, fecha_ingreso,fecha_nacimiento,cargo,telefono) VALUES (?, ?, ?, ?, ?,?)";
-
-                // Prepara la declaración SQL con parámetros
-                try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
-                    preparedStatement.setInt(1, id);
-                    preparedStatement.setString(2, nombre);
-                    preparedStatement.setString(3, String.valueOf(fecha_ingreso));
-                    preparedStatement.setString(4, String.valueOf(fecha_nacimiento));
-                    preparedStatement.setString(5, cargoText);
-                    preparedStatement.setString(6, telefono);
-
-                    // Ejecuta la declaración y guarda el nuevo usuario en la base de datos
-                    int filasAfectadas = preparedStatement.executeUpdate();
-
-                    if (filasAfectadas > 0) {
-                        mostrarAlerta("Información", "REGISTRO DE USUARIO", "Usuario registrado con éxito. ¡Felicidades!");
-
-                    } else {
-                        System.out.println("Error al registrar el usuario.");
-                    }
-                }
-
-            } catch (SQLException e) {
-                e.printStackTrace();
-                // Manejo de excepciones, puedes mostrar un mensaje de error al usuario si es necesario
-            }
         }
     
     private void cargarDatosDesdeBaseDeDatos() {
@@ -271,6 +260,7 @@ public class AllcontentController implements Initializable  {
 
     public void OnVerTablaEmpleado(MouseEvent mouseEvent) {
         ocultarPaneles();
+
         mostrarPanel(Panel_VerEmpleados);
     }
     private ObservableList<cls_empleado> listaEmpleados = FXCollections.observableArrayList();
@@ -279,8 +269,6 @@ public class AllcontentController implements Initializable  {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        obtenerListaEmpleadosDesdeBaseDeDatos();
-        obtenerListaEmpresaDesdeBaseDeDatos();
 
         // Configura las columnas para mostrar los datos
         colId.setCellValueFactory(cellData -> cellData.getValue().idProperty().asObject());
@@ -289,10 +277,27 @@ public class AllcontentController implements Initializable  {
         colFechaNacimiento.setCellValueFactory(cellData -> cellData.getValue().fechaNacimientoProperty());
         colCargo.setCellValueFactory(cellData -> cellData.getValue().cargoProperty());
         colTelefono.setCellValueFactory(cellData -> cellData.getValue().telefonoProperty());
-        colEliminar.setCellFactory(buttonTableCellFactory);
-        colEliminar.setSortable(false);
+        colEliminar.setCellFactory(param -> new TableCell<>() {
+            private final Button btnEliminar = new Button("Eliminar");
 
-        // Carga los datos desde la base de datos
+            {
+                btnEliminar.setOnAction(event -> {
+                    cls_empleado empleado = (cls_empleado) getTableView().getItems().get(getIndex());
+                    eliminarEmpleado(empleado);
+                });
+            }
+
+            @Override
+            protected void updateItem(Void item, boolean empty) {
+                super.updateItem(item, empty);
+                if (empty) {
+                    setGraphic(null);
+                } else {
+                    setGraphic(btnEliminar);
+                }
+            }
+        });
+
         cargarDatosDesdeBaseDeDatos();
         btn_ActulizarPanelFactura.setOnAction(event -> actualizarListaEmpleadosFactura());
         btn_actulizarFacturaEmpresa.setOnAction(event -> actualizarListaEmpresaFactura());
@@ -323,12 +328,108 @@ public class AllcontentController implements Initializable  {
         });
 
         cargarEmpresas();
+        //tabla de factura empresa
+        coliDFacturaEmpresa.setCellValueFactory(new PropertyValueFactory<>("id"));
+        colNItFactura.setCellValueFactory(new PropertyValueFactory<>("nitEmpresa"));
+        colFacturaNombreEmprresa.setCellValueFactory(new PropertyValueFactory<>("nombreEmpresa"));
+        colFacturaFechaEmpresa.setCellValueFactory(new PropertyValueFactory<>("fechaEmision"));
+        colFacturaDescripcionEmpresa.setCellValueFactory(new PropertyValueFactory<>("descripcion"));
+        colFacturaCantidadEmpresa.setCellValueFactory(new PropertyValueFactory<>("cantidad"));
+        colFacturaVUnitarioEmpresa.setCellValueFactory(new PropertyValueFactory<>("valorUnitario"));
+        colFacturaVTotalEmpresa.setCellValueFactory(new PropertyValueFactory<>("valorTotal"));
+        colFacturaEliminarEmpresa.setCellFactory(param -> new TableCell<>() {
+            private final Button btnEliminar = new Button("Eliminar");
 
+            {
+                btnEliminar.setOnAction(event -> {
+                    cls_facturaEmpresa FacturaEmpresa = (cls_facturaEmpresa) getTableView().getItems().get(getIndex());
+                    eliminarFacturaEmpresa(FacturaEmpresa);
+                });
+            }
+
+            @Override
+            protected void updateItem(Void item, boolean empty) {
+                super.updateItem(item, empty);
+                if (empty) {
+                    setGraphic(null);
+                } else {
+                    setGraphic(btnEliminar);
+                }
+            }
+        });
+        cargarFacturaEmpresas();
+
+        //tabla factura empleado
+        colIdFacturaEmpleado.setCellValueFactory(new PropertyValueFactory<>("idFactura"));
+        colIdEmpleadoFactura.setCellValueFactory(new PropertyValueFactory<>("idEmpleado"));
+        colFacturaNombreEmpleado.setCellValueFactory(new PropertyValueFactory<>("nombreEmpleado"));
+        colFacturaFechaEmpleado.setCellValueFactory(new PropertyValueFactory<>("fechaEmision"));
+        colFacturaDescripcionEmpleado.setCellValueFactory(new PropertyValueFactory<>("descripcion"));
+        colFacturaCantidadEmpleado.setCellValueFactory(new PropertyValueFactory<>("cantidad"));
+        colFacturaVUnitarioEmpleado.setCellValueFactory(new PropertyValueFactory<>("valorUnitario"));
+        colFacturaVTotalEmpleado.setCellValueFactory(new PropertyValueFactory<>("valorTotal"));
+        colFacturaElminarEmpleado.setCellFactory(param -> new TableCell<>() {
+            private final Button btnEliminar = new Button("Eliminar");
+
+            {
+                btnEliminar.setOnAction(event -> {
+                    cls_facturaEmpleado empleado = (cls_facturaEmpleado) getTableView().getItems().get(getIndex());
+                    eliminarFacturaEmpleado(empleado);
+                });
+            }
+
+            @Override
+            protected void updateItem(Void item, boolean empty) {
+                super.updateItem(item, empty);
+                if (empty) {
+                    setGraphic(null);
+                } else {
+                    setGraphic(btnEliminar);
+                }
+            }
+        });
+        cargarFacturaEmpleado();
+
+    }
+    private void cargarFacturaEmpleado (){
+        List<cls_facturaEmpleado> ListaFacturaEmpleado = FacturaEmpleadoDAO.obtenerFacturaEmpleado();
+        table_FacturaEmpleado.getItems().setAll(ListaFacturaEmpleado);
+    }
+    private void cargarFacturaEmpresas(){
+        List<cls_facturaEmpresa> listaFacturaEmpresa = FacturaEmpresaDAO.obtenerFacturasEmpresa();
+        table_facturaEmpresa.getItems().setAll(listaFacturaEmpresa);
     }
 
     private void cargarEmpresas() {
         List<cls_empresa> listaEmpresas = EmpresaDAO.obtenerEmpresas();
         table_verEmpresa.getItems().setAll(listaEmpresas);
+    }
+    private void eliminarFacturaEmpleado (cls_facturaEmpleado facturaEmpleado){
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Confirmación");
+        alert.setHeaderText(null);
+        alert.setContentText("¿Está seguro de que desea eliminar la factura? .");
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.isPresent() && result.get() == ButtonType.OK) {
+            FacturaEmpleadoDAO.eliminarFacturaEmpleado(facturaEmpleado.getIdFactura());
+            cargarFacturaEmpleado();
+        }
+
+
+    }
+    private void eliminarFacturaEmpresa(cls_facturaEmpresa facturaEmpresa){
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Confirmación");
+        alert.setHeaderText(null);
+        alert.setContentText("¿Está seguro de que desea eliminar la factura? .");
+
+        // Obtener el resultado de la confirmación
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.isPresent() && result.get() == ButtonType.OK) {
+            FacturaEmpresaDAO.eliminarFacturaEmpresa(facturaEmpresa.getId());
+            cargarFacturaEmpresas();
+        }
+
     }
     private void eliminarEmpresa(cls_empresa empresa) {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
@@ -344,63 +445,18 @@ public class AllcontentController implements Initializable  {
         }
     }
 
-    private final Callback<TableColumn<cls_empleado, Void>, TableCell<cls_empleado, Void>> buttonTableCellFactory = new Callback<>() {
-        @Override
-        public TableCell<cls_empleado, Void> call(final TableColumn<cls_empleado, Void> param) {
-            return new TableCell<>() {
-                private final Button button = new Button("Eliminar");
 
-                {
-                    button.setOnAction(event -> {
-                        cls_empleado empleado = getTableView().getItems().get(getIndex());
-                        eliminarEmpleado(empleado);
-                    });
-                }
-
-                @Override
-                protected void updateItem(Void item, boolean empty) {
-                    super.updateItem(item, empty);
-                    if (empty) {
-                        setGraphic(null);
-                    } else {
-                        setGraphic(button);
-                    }
-                }
-            };
-        }
-    };
     private void eliminarEmpleado(cls_empleado empleado) {
-        int idEmpleado = empleado.getId_empleado();
-
-        // Muestra un cuadro de diálogo de confirmación
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setTitle("Confirmación de Eliminación");
-        alert.setHeaderText("¿Estás seguro de que quieres eliminar este empleado?");
-        alert.setContentText("La eliminación del empleado también eliminará las facturas asociadas.");
+        alert.setTitle("Confirmación");
+        alert.setHeaderText(null);
+        alert.setContentText("¿Está seguro de que desea eliminar la empresa? Esta acción también eliminará sus facturas.");
 
-        // Obtén la respuesta del usuario desde el cuadro de diálogo
-        ButtonType result = alert.showAndWait().orElse(ButtonType.CANCEL);
-
-        // Procede con la eliminación solo si el usuario confirma
-        if (result == ButtonType.OK) {
-            try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/mi_base_de_datos", "root", "3012")) {
-                String sql = "DELETE FROM empleado WHERE id = ?";
-
-                try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
-                    preparedStatement.setInt(1, idEmpleado);
-
-                    int filasAfectadas = preparedStatement.executeUpdate();
-
-                    if (filasAfectadas > 0) {
-                        mostrarAlerta("Información", "ELIMINACIÓN DE EMPLEADO", "Empleado eliminado con éxito.");
-                    } else {
-                        System.out.println("No se afectaron filas. No se encontró un empleado con el ID proporcionado.");
-                    }
-                }
-            } catch (SQLException e) {
-                System.out.println("Error al eliminar el empleado.");
-                e.printStackTrace();
-            }
+        // Obtener el resultado de la confirmación
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.isPresent() && result.get() == ButtonType.OK) {
+            EmpleadoDAO.eliminarEmpleado(empleado.getId_empleado());
+            EmpleadoDAO.obtenerEmpleado();
         }
     }
     public void OnVolverVerEmpleados(MouseEvent mouseEvent) {
@@ -416,93 +472,22 @@ public class AllcontentController implements Initializable  {
         cargarDatosDesdeBaseDeDatos();
     }
 
-   private void obtenerListaEmpleadosDesdeBaseDeDatos() {
-        ObservableList<cls_empleado> listaEmpleados = FXCollections.observableArrayList();
 
-        try (Connection connection = DriverManager.getConnection(URL, USUARIO, CONTRASENA)) {
-            String sql = "SELECT * FROM empleado";
-            try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
-                try (ResultSet resultSet = preparedStatement.executeQuery()) {
-                    while (resultSet.next()) {
-                        int id = resultSet.getInt("id");
-                        String nombre = resultSet.getString("nombre_empleado");
-                        LocalDate fechaIngreso = resultSet.getDate("fecha_ingreso").toLocalDate();
-                        LocalDate fechaNacimiento = resultSet.getDate("fecha_nacimiento").toLocalDate();
-                        String cargo = resultSet.getString("cargo");
-                        String telefono = resultSet.getString("telefono");
-
-                        cls_empleado empleado = new cls_empleado(id, nombre, fechaIngreso, fechaNacimiento, cargo, telefono);
-                        listaEmpleados.add(empleado);
-
-                    }
-
-                }
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-            // Manejo de excepciones, puedes mostrar un mensaje de error al usuario si es necesario
-
-        }
-       menuButtonEmpleadosFactura.getItems().clear();
-
-        for (cls_empleado empleado : listaEmpleados) {
-            MenuItem menuItem = new MenuItem(empleado.getNombre_empleado());
-            menuItem.setOnAction(event -> seleccionarEmpleado(empleado));
-            menuButtonEmpleadosFactura.getItems().add(menuItem);
-        }
-   }
     private void seleccionarEmpleado(cls_empleado empleado) {
         txt_idEmpleadoFactura.setText(String.valueOf(empleado.getId_empleado()));
         txt_nombreEmpleadoFactura.setText(empleado.getNombre_empleado());
     }
 
 
-    private void guardarFacturaEnBaseDeDatos(String idEmpleado, String nombreEmpleado, LocalDate fechaEmision,
-                                      String descripcion, String cantidad, String valorUnitario) {
-        try {
-            Connection connection = DriverManager.getConnection(URL, USUARIO, CONTRASENA);
 
-            // Preparar la consulta SQL
-            String sql = "INSERT INTO factura_empleado (id, id_empleado, nombre_empleado, fecha_emision, descripcion, cantidad, valor_unitario, valor_total) " +
-                    "VALUES (null, ?, ?, ?, ?, ?, ?, ?)";
 
-            // Obtener la fecha del DatePicker y convertirla a formato Date
-            Date fechaEmisionDate = java.sql.Date.valueOf(fechaEmision);
 
-            // Calcular el valor total
-            double cantidadDouble = Double.parseDouble(cantidad);
-            double valorUnitarioDouble = Double.parseDouble(valorUnitario);
-            double valorTotal = cantidadDouble * valorUnitarioDouble;
-
-            // Crear la sentencia preparada
-            PreparedStatement preparedStatement = connection.prepareStatement(sql);
-            preparedStatement.setString(1, idEmpleado);
-            preparedStatement.setString(2, nombreEmpleado);
-            preparedStatement.setDate(3, new java.sql.Date(fechaEmisionDate.getTime()));
-            preparedStatement.setString(4, descripcion);
-            preparedStatement.setString(5, cantidad);
-            preparedStatement.setString(6, valorUnitario);
-            preparedStatement.setDouble(7, valorTotal);
-
-            // Ejecutar la consulta
-            preparedStatement.executeUpdate();
-
-            mostrarAlerta("Registro Facturas","Factura Registrada","Factura Registrada con exito ");
-
-            // Cerrar recursos
-            preparedStatement.close();
-            connection.close();
-
-        } catch (SQLException ex) {
-            System.err.println("Error al guardar la factura: " + ex.getMessage());
-        }
-    }
     @FXML
     private void actualizarListaEmpleadosFactura() {
         // Llamar al método para obtener la lista de empleados desde la base de datos
-        obtenerListaEmpleadosDesdeBaseDeDatos();
-
+        obtenerListaEmpleadoDesdeBaseDeDatos();
         // Limpiar y volver a llenar el menú desplegable
+
 
         for (cls_empleado empleado : listaEmpleados) {
             MenuItem menuItem = new MenuItem(empleado.getNombre_empleado());
@@ -512,9 +497,8 @@ public class AllcontentController implements Initializable  {
     }
 
     public void onGuardarFactura(MouseEvent mouseEvent) {
-        guardarFacturaEnBaseDeDatos(txt_idEmpleadoFactura.getText(), txt_nombreEmpleadoFactura.getText(), date_fechaEmisionFactura.getValue(), txtarea_descripcionFactura.getText()
-                , txt_cantidadFactura.getText(), txt_vUnitarioFactura.getText()
-        );
+        FacturaEmpleadoDAO.guardarFacturaEnBaseDeDatos(txt_idEmpleadoFactura.getText(), txt_nombreEmpleadoFactura.getText(), date_fechaEmisionFactura.getValue(), txtarea_descripcionFactura.getText()
+                , txt_cantidadFactura.getText(), txt_vUnitarioFactura.getText());
     }
     void guardarEmpresa() {
         int nit = Integer.parseInt(txt_NitEmpresa.getText());
@@ -526,6 +510,43 @@ public class AllcontentController implements Initializable  {
 
         // Puedes agregar lógica adicional aquí, como mostrar un mensaje de éxito al usuario.
         mostrarAlerta("Empresas","Empresa Registrada","Empresa registrada con exito");
+    }
+    private void obtenerListaEmpleadoDesdeBaseDeDatos() {
+        ObservableList<cls_empleado> listaEmpleado = FXCollections.observableArrayList();
+
+        try (Connection connection = DriverManager.getConnection(URL, USUARIO, CONTRASENA)) {
+            String sql = "SELECT * FROM empleado";
+            try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+                try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                    while (resultSet.next()) {
+                        int id = resultSet.getInt("id");
+                        String nombre = resultSet.getString("nombre_empleado");
+                        LocalDate fechaVinculacion = resultSet.getDate("fecha_ingreso").toLocalDate();
+                        LocalDate fechaNacimiento = resultSet.getDate("fecha_nacimiento").toLocalDate();
+                        String cargo = resultSet.getString("cargo");
+                        String telefono = resultSet.getString("telefono");
+
+
+
+                        cls_empleado empleado = new cls_empleado(id, nombre, fechaVinculacion,fechaNacimiento,cargo,telefono);
+                        listaEmpleado.add(empleado);
+
+                    }
+
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            // Manejo de excepciones, puedes mostrar un mensaje de error al usuario si es necesario
+
+        }
+        menuButtonEmpleadosFactura.getItems().clear();
+
+        for (cls_empleado empleado : listaEmpleado) {
+            MenuItem menuItem = new MenuItem(empleado.getNombre_empleado());
+            menuItem.setOnAction(event -> seleccionarEmpleado(empleado));
+            menuButtonEmpleadosFactura.getItems().add(menuItem);
+        }
     }
     private void obtenerListaEmpresaDesdeBaseDeDatos() {
         ObservableList<cls_empresa> listaEmpresa = FXCollections.observableArrayList();
@@ -578,44 +599,18 @@ public class AllcontentController implements Initializable  {
             menuButtonEmpleadosFactura.getItems().add(menuItem);
         }
     }
-    private void guardarFacturaEmpresaEnBaseDeDatos(String idEmpresa, String nombreEmpresa, LocalDate fechaEmision,
-                                             String descripcion, String cantidad, String valorUnitario) {
-        try {
-            Connection connection = DriverManager.getConnection(URL, USUARIO, CONTRASENA);
 
-            // Preparar la consulta SQL
-            String sql = "INSERT INTO factura_empresa (id, nit_empresa, nombre_empresa, fecha_emision, descripcion, cantidad, valor_unitario, valor_total) " +
-                    "VALUES (null, ?, ?, ?, ?, ?, ?, ?)";
+    public void actualizarInterfaz() {
+        // Paso 1: Obtener los datos actualizados de la base de datos
+        List<cls_empresa> listaEmpresas = EmpresaDAO.obtenerEmpresas();
+        List <cls_empleado> ListaEmpleado = EmpleadoDAO.obtenerEmpleado();
 
-            // Obtener la fecha del DatePicker y convertirla a formato Date
-            Date fechaEmisionDate = java.sql.Date.valueOf(fechaEmision);
-
-            // Calcular el valor total
-            double cantidadDouble = Double.parseDouble(cantidad);
-            double valorUnitarioDouble = Double.parseDouble(valorUnitario);
-            double valorTotal = cantidadDouble * valorUnitarioDouble;
-
-            // Crear la sentencia preparada
-            PreparedStatement preparedStatement = connection.prepareStatement(sql);
-            preparedStatement.setString(1, idEmpresa);
-            preparedStatement.setString(2, nombreEmpresa);
-            preparedStatement.setDate(3, new java.sql.Date(fechaEmisionDate.getTime()));
-            preparedStatement.setString(4, descripcion);
-            preparedStatement.setString(5, cantidad);
-            preparedStatement.setString(6, valorUnitario);
-            preparedStatement.setDouble(7, valorTotal);
-
-            // Ejecutar la consulta
-            preparedStatement.executeUpdate();
-
-            mostrarAlerta("Registro Facturas","Factura Registrada","Factura Registrada con exito ");
-
-            // Cerrar recursos
-            preparedStatement.close();
-            connection.close();
-
-        } catch (SQLException ex) {
-            System.err.println("Error al guardar la factura: " + ex.getMessage());
+        // Paso 2: Actualizar la Interfaz Gráfica
+        if (table_verEmpresa != null || Table_VerEmpleados != null)  {
+            ObservableList<cls_empresa> observableList = FXCollections.observableArrayList(listaEmpresas);
+            ObservableList<cls_empleado> observableList1 = FXCollections.observableArrayList(ListaEmpleado);
+            table_verEmpresa.setItems(observableList);
+            Table_VerEmpleados.setItems(observableList);
         }
     }
     public void onVolverFacturaEmpleado(MouseEvent mouseEvent) {
@@ -662,7 +657,7 @@ public class AllcontentController implements Initializable  {
         mostrarPanel(panel_FacturaEmpresa);
     }
     public void OnGuardarFacturaEmpresa(MouseEvent mouseEvent) {
-        guardarFacturaEmpresaEnBaseDeDatos(txt_NitEmpresaFactura.getText(),txt_NombreEmpresaFactura.getText(),date_emisionFactureEmpresa.getValue(),
+        FacturaEmpresaDAO.guardarFacturaEmpresaEnBaseDeDatos(txt_NitEmpresaFactura.getText(),txt_NombreEmpresaFactura.getText(),date_emisionFactureEmpresa.getValue(),
                 textArea_descripcionFacturaEmpresa.getText(),txt_cantidadFacturaEmpresa.getText(),txt_vUnitarioFacturaEmpresa.getText() );
     }
 
@@ -673,16 +668,32 @@ public class AllcontentController implements Initializable  {
     }
 
     public void OnVerEmpresa(MouseEvent mouseEvent) {
-        mostrarPanel(panel_verEmpresa);
         ocultarPaneles();
+        actualizarInterfaz();
+        mostrarPanel(panel_verEmpresa);
+
+
     }
     public void OnVerFacturas(MouseEvent mouseEvent) {
-        ocultarPaneles();
         mostrarPanel(panel_menuVerFacturas);
     }
 
     public void OnVerFacturasEmpleados(MouseEvent mouseEvent) {
         ocultarPaneles();
+        mostrarPanel(panel_verFacturaEmpresa);
+    }
+
+    public void OnVolverMenuFacturas(MouseEvent mouseEvent) {
+        ocultarPaneles();
+        mostrarPanel(panel_menuVerFacturas);
+        mostrarPanel(Panel_realizraFacturas);
+    }
+
+    public void OnVerFacturasEmpresa(MouseEvent mouseEvent) {
+        ocultarPaneles();
         mostrarPanel(panel_verFacturaEmpleado);
+    }
+
+    public void onListaEmpleados(MouseEvent mouseEvent) {
     }
 }

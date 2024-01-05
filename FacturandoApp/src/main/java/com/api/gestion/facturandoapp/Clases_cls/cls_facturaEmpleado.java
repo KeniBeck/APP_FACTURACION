@@ -14,9 +14,9 @@ private final SimpleIntegerProperty idFactura;
     private final SimpleDoubleProperty valorUnitario;
     private final SimpleDoubleProperty valorTotal;
 
-    public cls_facturaEmpleado(SimpleIntegerProperty idFactura, int idEmpleado, String nombreEmpleado, LocalDate fechaEmision,
+    public cls_facturaEmpleado(int idFactura, int idEmpleado, String nombreEmpleado, LocalDate fechaEmision,
                                String descripcion, int cantidad, double valorUnitario, double valorTotal) {
-        this.idFactura = idFactura;
+        this.idFactura = new SimpleIntegerProperty(idFactura);
         this.idEmpleado = new SimpleIntegerProperty(idEmpleado);
         this.nombreEmpleado = new SimpleStringProperty(nombreEmpleado);
         this.fechaEmision = new SimpleObjectProperty<>(fechaEmision);

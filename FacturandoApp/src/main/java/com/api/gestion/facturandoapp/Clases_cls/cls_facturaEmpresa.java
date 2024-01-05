@@ -3,7 +3,7 @@ package com.api.gestion.facturandoapp.Clases_cls;
 import java.time.LocalDate;
 
 public class cls_facturaEmpresa {
-    private int id;
+
     private int nitEmpresa;
     private String nombreEmpresa;
     private LocalDate fechaEmision;
@@ -11,6 +11,7 @@ public class cls_facturaEmpresa {
     private int cantidad;
     private double valorUnitario;
     private double valorTotal;
+    private int id;
 
     public cls_facturaEmpresa(int id, int nitEmpresa, String nombreEmpresa, LocalDate fechaEmision, String descripcion, int cantidad, double valorUnitario, double valorTotal) {
         this.id = id;
@@ -21,6 +22,18 @@ public class cls_facturaEmpresa {
         this.cantidad = cantidad;
         this.valorUnitario = valorUnitario;
         this.valorTotal = valorTotal;
+    }
+
+    public void setValorUnitario(double valorUnitario) {
+        this.valorUnitario = valorUnitario;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public int getNitEmpresa() {

@@ -26,6 +26,58 @@ public class cls_empleado {
         this.telefono = new SimpleStringProperty(telefono);
     }
 
+    public void setId_empleado(int id_empleado) {
+        this.id_empleado.set(id_empleado);
+    }
+
+    public SimpleStringProperty nombre_empleadoProperty() {
+        return nombre_empleado;
+    }
+
+    public void setNombre_empleado(String nombre_empleado) {
+        this.nombre_empleado.set(nombre_empleado);
+    }
+
+    public LocalDate getFecha_ingreso() {
+        return fecha_ingreso.get();
+    }
+
+    public SimpleObjectProperty<LocalDate> fecha_ingresoProperty() {
+        return fecha_ingreso;
+    }
+
+    public void setFecha_ingreso(LocalDate fecha_ingreso) {
+        this.fecha_ingreso.set(fecha_ingreso);
+    }
+
+    public LocalDate getFecha_nacimiento() {
+        return fecha_nacimiento.get();
+    }
+
+    public SimpleObjectProperty<LocalDate> fecha_nacimientoProperty() {
+        return fecha_nacimiento;
+    }
+
+    public void setFecha_nacimiento(LocalDate fecha_nacimiento) {
+        this.fecha_nacimiento.set(fecha_nacimiento);
+    }
+
+    public String getCargo() {
+        return cargo.get();
+    }
+
+    public void setCargo(String cargo) {
+        this.cargo.set(cargo);
+    }
+
+    public String getTelefono() {
+        return telefono.get();
+    }
+
+    public void setTelefono(String telefono) {
+        this.telefono.set(telefono);
+    }
+
     public int getId_empleado() {
         return id_empleado.get();
     }
